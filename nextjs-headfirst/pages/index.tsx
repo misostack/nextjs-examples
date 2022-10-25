@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import ImageNext from "next/future/image";
@@ -9,6 +10,11 @@ const Home: NextPage = () => {
   const router = useRouter();
   return (
     <>
+      <Head>
+        <title>Home Page</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <h1 className="heading">Example</h1>
       <p>BasePath: {router.basePath}</p>
       <ImageNext

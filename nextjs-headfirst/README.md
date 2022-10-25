@@ -217,6 +217,17 @@ export default function Document() {
 </Script>
 ```
 
+### Custom Head
+
+```tsx
+import Head from "next/head";
+<Head>
+  <title>Home Page</title>
+  <meta charSet="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+</Head>;
+```
+
 ## Main concepts
 
 ### 1. Server Side Render
