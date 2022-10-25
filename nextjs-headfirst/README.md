@@ -6,7 +6,11 @@ Things you can learn in this solution
 - [x] Styles & Assets (images, fonts, ...)
 - [x] Main Concepts
 
-## Setup & Debug
+## Setup & Debug & Tools
+
+### Tools
+
+- [VSCode React and Next.js Snippets](https://marketplace.visualstudio.com/items?itemName=AvneeshAgarwal.react-nextjs-snippets&ref=producthunt)
 
 ### Setup
 
@@ -233,6 +237,72 @@ import Head from "next/head";
 ### 1. Server Side Render
 
 - The entire website will be rendered on server for every request. Includes: html pages, JSON Data and JS instructions to make component interact
+
+**Flow**
+
+- [MIDDLEWARE] http://localhost:3000/
+- [Server Side Props]
+- [APP] { title: 'Home page', description: 'NestJS Headfirst' }
+- [COMPONENT RENDER] { title: 'Home page', description: 'NestJS Headfirst' }
+- [DOCUMENT]
+
+```tsx
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
+import Head from "next/head";
+
+interface HomePageProps {
+  title: string;
+  description: string;
+}
+
+const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
+  console.log("[COMPONENT RENDER]", props);
+  return (
+    <>
+      <Head>
+        <title>{props.title}</title>
+        <meta name="description" content={props.description} />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <h1 className="heading">Example {props.title}</h1>
+      <p>{props.description}</p>
+    </>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
+  context
+) => {
+  console.log("[Server Side Props]");
+  return {
+    props: {
+      title: "Home page",
+      description: "NestJS Headfirst",
+    },
+  };
+};
+
+export default Home;
+```
+
+## Server Side
+
+### Middleware
+
+Middleware allows you to run code before a request is completed, then based on the incoming request, you can modify the response by rewriting, redirecting, adding headers, or setting cookies.
+
+- [NextJS Middleware](https://nextjs.org/docs/advanced-features/middleware)
+
+```ts
+// middleware.ts
+```
 
 ## References
 

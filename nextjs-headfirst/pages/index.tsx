@@ -1,4 +1,8 @@
-import type { NextPage } from "next";
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -6,16 +10,26 @@ import ImageNext from "next/future/image";
 import HomeImage from "../public/assets/images/now-or-never.jpg";
 import Script from "next/script";
 
-const Home: NextPage = () => {
+interface HomePageProps {
+  title: string;
+  description: string;
+}
+
+const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
   const router = useRouter();
+  console.log("[COMPONENT RENDER]", props);
   return (
     <>
       <Head>
-        <title>Home Page</title>
+        <title>{props.title}</title>
+        <meta name="description" content={props.description} />
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <h1 className="heading">Example</h1>
+      <h1 className="heading">Example {props.title}</h1>
+      <p>{props.description}</p>
       <p>BasePath: {router.basePath}</p>
       <ImageNext
         alt="Now or never"
@@ -55,6 +69,18 @@ const Home: NextPage = () => {
       </Script>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
+  context
+) => {
+  console.log("[Server Side Props]");
+  return {
+    props: {
+      title: "Home page",
+      description: "NestJS Headfirst",
+    },
+  };
 };
 
 export default Home;
