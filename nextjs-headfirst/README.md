@@ -100,14 +100,6 @@ There are more than 2 ways to use image in nextjs
 - [NextJS Image Component Examples](https://github.com/vercel/next.js/tree/canary/examples/image-component)
 
 ```tsx
-<img
-  src="/assets/images/now-or-never.jpg"
-  alt="Now or never"
-  className="w-1/3 h-auto"
-/>
-```
-
-```tsx
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -145,6 +137,34 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+```
+
+3. Optimize Fonts
+
+```tsx
+// pages/_document.tsx
+import { Html, Head, Main, NextScript } from "next/document";
+
+export default function Document() {
+  return (
+    <Html>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
+}
 ```
 
 ## Main concepts

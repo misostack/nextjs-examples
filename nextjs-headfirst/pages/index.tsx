@@ -13,6 +13,8 @@ const Home: NextPage = () => {
       <ImageNext
         alt="Now or never"
         src={HomeImage}
+        width={HomeImage.width / 2}
+        height={(HomeImage.height * (HomeImage.width / HomeImage.height)) / 2}
         style={{
           maxWidth: "50%",
           height: "auto",
@@ -27,11 +29,11 @@ const Home: NextPage = () => {
         height={(HomeImage.height * (HomeImage.width / HomeImage.height)) / 2}
         style={{}}
       />
-      <img
+      {/* <img
         src="/assets/images/now-or-never.jpg"
         alt="Now or never"
         className="w-1/3 h-auto"
-      />
+      /> */}
     </>
   );
 };
