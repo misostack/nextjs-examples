@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import ImageNext from "next/future/image";
 import HomeImage from "../public/assets/images/now-or-never.jpg";
+import Script from "next/script";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -34,6 +35,18 @@ const Home: NextPage = () => {
         alt="Now or never"
         className="w-1/3 h-auto"
       /> */}
+      <div
+        className="fb-like"
+        data-href="https://developers.facebook.com/docs/plugins/"
+        data-width=""
+        data-layout="standard"
+        data-action="like"
+        data-size="small"
+        data-share="true"
+      ></div>
+      <Script id="website-is-ready" strategy="lazyOnload">
+        {`console.log('website is ready!')`}
+      </Script>
     </>
   );
 };

@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 export default function Document() {
   return (
@@ -16,6 +17,15 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
+        <Script
+          async
+          defer
+          crossOrigin="anonymous"
+          nonce="mFAfERTS"
+          src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v15.0&appId=1778717048805106&autoLogAppEvents=1"
+          strategy="lazyOnload"
+        />
+        <div id="fb-root"></div>
       </body>
     </Html>
   );

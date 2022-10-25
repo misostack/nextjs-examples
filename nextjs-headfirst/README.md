@@ -167,8 +167,62 @@ export default function Document() {
 }
 ```
 
+4. Scripts
+
+- Internal scripts
+- External scripts
+
+One of the most important things if time to interaction of user. It means user should be able to interact with your website ASAP.
+Sometimes if your scripts are too large, this criteria will be increased.
+So that NextJS provide us "Script" component which is optimized for loading script automatically.
+
+```tsx
+import { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
+
+export default function Document() {
+  return (
+    <Html>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
+      </Head>
+      <body>
+        <Main />
+        <NextScript />
+        <Script
+          async
+          defer
+          crossOrigin="anonymous"
+          nonce="mFAfERTS"
+          src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v15.0&appId=1778717048805106&autoLogAppEvents=1"
+          strategy="lazyOnload"
+        />
+        <div id="fb-root"></div>
+      </body>
+    </Html>
+  );
+}
+```
+
+```tsx
+<Script id="website-is-ready" strategy="lazyOnload">
+  {`console.log('website is ready!')`}
+</Script>
+```
+
 ## Main concepts
 
 ### 1. Server Side Render
 
 - The entire website will be rendered on server for every request. Includes: html pages, JSON Data and JS instructions to make component interact
+
+## References
+
+- [NextJS Full Examples](https://github.com/vercel/next.js/tree/canary/examples)
