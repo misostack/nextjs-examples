@@ -292,6 +292,29 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
 export default Home;
 ```
 
+### 2. Routes
+
+All pages must be placed inside pages folder, their names will be used for manipulating the route handler.
+
+```json
+// index route
+pages/index.tsx → /
+pages/page-a/index.tsx → /page-a
+// nested route
+pages/page-a.tsx → /page-a
+pages/dashboard/settings/username.js → /dashboard/settings/username
+// dynamic route segments
+pages/products/[pid].tsx → products/:productId
+pages/products/[pid]/reviews.tsx → products/:productId/reviews
+/pages/products/[...slug].tsx → /products/1/2 or /products/a/b => number of segments must be plural ( >= 2)
+```
+
+**next/router**
+
+**next/link**
+
+1. How to create link in next.js?
+
 ## Server Side
 
 ### Middleware
