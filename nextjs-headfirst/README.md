@@ -326,7 +326,116 @@ pages/products/[pid]/reviews.tsx → products/:productId/reviews
 
 **next/link**
 
-1. How to create link in next.js?
+```ts
+// pages/products/[categoryId]/index.tsx
+
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+
+import type { NextPage } from "next";
+import Link from "next/link";
+
+interface productCategoryPageProps {
+  category: {
+    categorySlug: string;
+    name: string;
+  };
+}
+
+const productCategoryPage: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { category } = props;
+  return (
+    <>
+      <h1>{category.name}</h1>
+      <p>{category.categorySlug}</p>
+      <ul>
+        {Array.from(new Array(5)).map((_, index) => (
+          <li key={index + 1}>
+            <Link
+              href={`/products/${category.categorySlug}/product-${index + 1}`}
+            >{`Product ${index + 1}`}</Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default productCategoryPage;
+
+export const getServerSideProps: GetServerSideProps<
+  productCategoryPageProps
+> = async (context) => {
+  const categorySlug = context.query.categorySlug as string;
+  const category = {
+    categorySlug,
+    name: `Category [${categorySlug}]`,
+  };
+  return {
+    props: {
+      category,
+    },
+  };
+};
+
+// pages/products/[productId]/index.tsx
+
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
+
+interface productDetailPageProps {
+  product: {
+    productSlug: string;
+    name: string;
+  };
+}
+
+const productDetailPage: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { product } = props;
+  const router = useRouter();
+  const goback = useCallback(() => {
+    router.push(`/products/${router.query["categorySlug"]}`);
+  }, [product]);
+  return (
+    <>
+      <h1>{product.name}</h1>
+      <p>Category : {router.query["categorySlug"]}</p>
+      <p>{product.productSlug}</p>
+      <button
+        className="bg-green-700 py-4 px-8 text-white"
+        onClick={() => {
+          goback();
+        }}
+      >
+        Back
+      </button>
+    </>
+  );
+};
+
+export default productDetailPage;
+
+export const getServerSideProps: GetServerSideProps<
+  productDetailPageProps
+> = async (context) => {
+  const productSlug = context.query.productSlug as string;
+  const product = {
+    productSlug,
+    name: `product [${productSlug}]`,
+  };
+  return {
+    props: {
+      product,
+    },
+  };
+};
+```
 
 ## Server Side
 

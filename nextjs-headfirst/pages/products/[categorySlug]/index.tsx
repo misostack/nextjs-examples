@@ -3,6 +3,7 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import type { NextPage } from "next";
+import Link from "next/link";
 
 interface productCategoryPageProps {
   category: {
@@ -19,6 +20,15 @@ const productCategoryPage: NextPage<
     <>
       <h1>{category.name}</h1>
       <p>{category.categorySlug}</p>
+      <ul>
+        {Array.from(new Array(5)).map((_, index) => (
+          <li key={index + 1}>
+            <Link
+              href={`/products/${category.categorySlug}/product-${index + 1}`}
+            >{`Product ${index + 1}`}</Link>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
