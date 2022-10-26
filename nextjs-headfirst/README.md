@@ -27,31 +27,44 @@ Create a file named .vscode/launch.json at the root of your project with the fol
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Next.js: debug server-side",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "npm run dev"
+      "type": "node",
+      "request": "attach",
+      "name": "Next: Node",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/nextjs-headfirst",
+      "port": 9229
     },
     {
-      "name": "Next.js: debug client-side",
-      "type": "pwa-chrome",
+      "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000"
-    },
-    {
-      "name": "Next.js: debug full stack",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "npm run dev",
-      "console": "integratedTerminal",
-      "serverReadyAction": {
-        "pattern": "started server on .+, url: (https?://.+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
+      "name": "Next: Chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/nextjs-headfirst",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack://_N_E/*": "${webRoot}/*"
       }
     }
   ]
 }
+```
+
+Then start your app with this
+
+```bash
+npm run dev
+```
+
+In window you need this package "cross-env"
+
+```json
+  "scripts": {
+    "dev": "NODE_OPTIONS='--inspect' next dev", // other os
+    "dev:window": "cross-env NODE_OPTIONS='--inspect' next dev", // window os
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
 ```
 
 ## Styles and Assets
