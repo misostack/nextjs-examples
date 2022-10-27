@@ -1,3 +1,6 @@
+import { TodosContext } from "@/businesses/states/todos";
+import { TodoModel, TodoStatus } from "@/models/todo";
+import TodoList from "@/views/components/todos/TodoList";
 import type {
   GetServerSideProps,
   NextComponentType,
@@ -5,17 +8,6 @@ import type {
 } from "next";
 import { useMemo, useState } from "react";
 
-export enum TodoStatus {
-  pending = "pending",
-  inprogress = "inprogress",
-  done = "done",
-}
-interface TodoModel {
-  id: number;
-  name: string;
-  description?: string;
-  status: TodoStatus;
-}
 interface TodosIndexProps {
   initialTodos: TodoModel[];
 }
@@ -23,12 +15,6 @@ interface TodosIndexProps {
 const TodosIndex: NextComponentType<NextPageContext, {}, TodosIndexProps> = (
   props: TodosIndexProps
 ) => {
-  // component's properties
-  const statusColors = {
-    [TodoStatus.pending]: "bg-red-400",
-    [TodoStatus.inprogress]: "bg-yellow-400",
-    [TodoStatus.done]: "bg-green-400",
-  };
   // application state
   const [todos, setTodos] = useState(props.initialTodos);
   const nextTodoId = useMemo(() => {
@@ -49,21 +35,17 @@ const TodosIndex: NextComponentType<NextPageContext, {}, TodosIndexProps> = (
     <>
       <div className="max-h-screen min-h-screen">
         <div className="h-1/2">
-          <button
-            className="bg-blue-600"
-            onClick={() => {
-              onAddNewTask();
-            }}
-          >
-            New task
-          </button>
-          {todos.map((todo) => (
-            <div key={todo.id} className={`${statusColors[todo.status]} mb-2`}>
-              <h3>{todo.name}</h3>
-              <p>{todo.description}</p>
-              <p>{todo.status}</p>
-            </div>
-          ))}
+          <TodosContext.Provider value={todos}>
+            <button
+              className="bg-blue-600"
+              onClick={() => {
+                onAddNewTask();
+              }}
+            >
+              New task
+            </button>
+            <TodoList />
+          </TodosContext.Provider>
         </div>
       </div>
     </>
