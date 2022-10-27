@@ -634,6 +634,8 @@ export { todoReducers, todoActions };
 // usage
 ```
 
+**CSS Module**
+
 ### 4. Middleware
 
 Middleware allows you to run code before a request is completed, then based on the incoming request, you can modify the response by rewriting, redirecting, adding headers, or setting cookies.
