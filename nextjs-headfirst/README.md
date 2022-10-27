@@ -8,6 +8,49 @@ Things you can learn in this solution
 
 ## Setup & Debug & Tools
 
+### Setup folder structure
+
+![NextJS Application Architecture](../images/nextjs-application-architecture.png)
+
+MVVM:
+
+- Model
+- View
+- ViewModel
+  - Business
+  - Controllers
+
+```md
+src -> entire source code
+**[ViewModel]**
+
+- pages -> controlers
+- businesses -> state management, services
+
+**[View]**
+
+- views -> layouts, components, pages
+
+**[Model]**
+
+- models -> application's models
+- repositories -> api calls
+
+**[shared]**
+
+- shared -> libraries, helpers
+
+**[Others]**
+
+- styles -> application's stylesheets
+  - \_vars.scss -> theme's colors
+  - \_mixins.scss -> shared mixins
+  - global.scss -> global styles: font, spacing, blocks, forms
+  - [pageName].scss -> custom styles for pages
+
+public -> public assets
+```
+
 ### Tools
 
 - [VSCode React and Next.js Snippets](https://marketplace.visualstudio.com/items?itemName=AvneeshAgarwal.react-nextjs-snippets&ref=producthunt)
@@ -437,9 +480,13 @@ export const getServerSideProps: GetServerSideProps<
 };
 ```
 
-## Server Side
+### 3. Client Side
 
-### Middleware
+Same as normal web application, javascript will be used for rendering page after user's interaction.
+In this case, nextjs client side works same as normal ReactJS Application.
+Let's dive into todolist application
+
+### 4. Middleware
 
 Middleware allows you to run code before a request is completed, then based on the incoming request, you can modify the response by rewriting, redirecting, adding headers, or setting cookies.
 

@@ -7,7 +7,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import ImageNext from "next/future/image";
-import HomeImage from "../public/assets/images/now-or-never.jpg";
+import HomeImage from "@/public/assets/images/now-or-never.jpg";
 import Script from "next/script";
 import Link from "next/link";
 
@@ -61,11 +61,11 @@ const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (
         height={(HomeImage.height * (HomeImage.width / HomeImage.height)) / 2}
         style={{}}
       />
-      {/* <img
+      <img
         src="/assets/images/now-or-never.jpg"
         alt="Now or never"
         className="w-1/3 h-auto"
-      /> */}
+      />
       <div
         className="fb-like"
         data-href="https://developers.facebook.com/docs/plugins/"

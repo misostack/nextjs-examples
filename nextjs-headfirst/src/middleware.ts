@@ -1,3 +1,4 @@
+// [VMLayer] src/middleware.ts - nextjs's special file
 import { NextRequest, NextResponse } from "next/server";
 
 const middleware = (req: NextRequest) => {
