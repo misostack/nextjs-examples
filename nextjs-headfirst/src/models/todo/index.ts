@@ -6,6 +6,11 @@ export enum TodoStatus {
 export interface TodoModel {
   id: number;
   name: string;
-  description?: string;
+  description: string;
   status: TodoStatus;
+}
+
+export interface TodoCreateModel {
+  name: string;
+  description: string;
 }
