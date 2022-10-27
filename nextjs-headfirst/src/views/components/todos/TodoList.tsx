@@ -1,9 +1,9 @@
-import { TodosContext } from "@/businesses/states/todos";
+import { useTodos } from "@/businesses/states/todos";
 import { TodoStatus } from "@/models/todo";
-import React, { useContext } from "react";
+import React from "react";
 
 const TodoList = () => {
-  const todos = useContext(TodosContext);
+  const todos = useTodos();
   // component's properties
   const statusColors = {
     [TodoStatus.pending]: "bg-red-400",

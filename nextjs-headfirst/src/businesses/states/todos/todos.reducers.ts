@@ -24,8 +24,8 @@ const todoReducers: Reducer<TodoModel[], TodosAction> = (
     ];
   }
   // default
+  console.error(`Unhandled  action type ${action.type}`);
   return [...todos];
-  // return new Error(`Unhandled  action type ${action.type}`);
 };
 
 // define dispatch actions

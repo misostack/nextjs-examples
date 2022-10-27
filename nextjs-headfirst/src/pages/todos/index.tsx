@@ -1,17 +1,13 @@
-import { TodosContext } from "@/businesses/states/todos";
-import {
-  todoActions,
-  todoReducers,
-  TodosAction,
-} from "@/businesses/states/todos/todos.reducers";
+import { TodosProvider } from "@/businesses/states/todos";
+
 import { TodoModel, TodoStatus } from "@/models/todo";
+import TodoAddForm from "@/views/components/todos/TodoAddForm";
 import TodoList from "@/views/components/todos/TodoList";
 import type {
   GetServerSideProps,
   NextComponentType,
   NextPageContext,
 } from "next";
-import { ReducerAction, useMemo, useReducer, useState } from "react";
 
 interface TodosIndexProps {
   initialTodos: TodoModel[];
@@ -20,31 +16,15 @@ interface TodosIndexProps {
 const TodosIndex: NextComponentType<NextPageContext, {}, TodosIndexProps> = (
   props: TodosIndexProps
 ) => {
-  // application state
-  const [todos, dispatch] = useReducer(todoReducers, props.initialTodos);
-  // handler events
-  const onAddNewTask = () => {
-    todoActions.addAction(dispatch, {
-      name: `Task`,
-      description: "lorem ips",
-    });
-  };
   // should use views here
   return (
     <>
       <div className="max-h-screen min-h-screen">
         <div className="h-1/2">
-          <TodosContext.Provider value={todos}>
-            <button
-              className="bg-blue-600"
-              onClick={(e) => {
-                onAddNewTask();
-              }}
-            >
-              New task
-            </button>
+          <TodosProvider initialTodos={props.initialTodos}>
+            <TodoAddForm />
             <TodoList />
-          </TodosContext.Provider>
+          </TodosProvider>
         </div>
       </div>
     </>
