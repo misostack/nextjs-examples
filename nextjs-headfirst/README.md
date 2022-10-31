@@ -646,6 +646,24 @@ Middleware allows you to run code before a request is completed, then based on t
 // middleware.ts
 ```
 
+### 5. Authentication
+
+#### 5.1. Write your own authentication flow
+
+1. Server Side Render
+
+- We will use session and jwt token
+
+2. Client Side Render
+
+- We will use context and custom hook
+
+#### 5.2. Cookie on server side, client
+
+```bash
+npm install --save cookies-next
+```
+
 ## References
 
 - [NextJS Full Examples](https://github.com/vercel/next.js/tree/canary/examples)

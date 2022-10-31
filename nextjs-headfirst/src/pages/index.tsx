@@ -10,6 +10,15 @@ import ImageNext from "next/future/image";
 import HomeImage from "@/public/assets/images/now-or-never.jpg";
 import Script from "next/script";
 import Link from "next/link";
+import { getCookie } from "cookies-next";
+
+import {
+  signedIn,
+  signedOut,
+  useIonAuthDispatch,
+  useSession,
+} from "@/shared/libs/ion-auth";
+import { withIonAuthSsr } from "@/shared/libs/ion-auth/next";
 
 interface HomePageProps {
   title: string;
@@ -21,6 +30,8 @@ const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (
 ) => {
   const router = useRouter();
   console.log("[COMPONENT RENDER]", props);
+  const session = useSession();
+  const dispatch = useIonAuthDispatch();
   return (
     <>
       <Head>
@@ -41,6 +52,22 @@ const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (
         ))}
       </ul>
       <p>{props.description}</p>
+      <button
+        className="bg-green-600"
+        onClick={() => {
+          session?.uid
+            ? signedOut(dispatch)
+            : signedIn(dispatch, {
+                uid: 1,
+                accessToken: "",
+                refreshToken: "",
+                permissions: [],
+              });
+        }}
+      >
+        {session?.uid ? "LOGOUT" : "LOGIN"}
+      </button>
+      {JSON.stringify(session)}
       <p>BasePath: {router.basePath}</p>
       <ImageNext
         alt="Now or never"
@@ -81,11 +108,20 @@ const Home: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (
     </>
   );
 };
-
+// const getServerSidePropsDefault: GetServerSideProps<HomePageProps> = ;
+// export const getServerSideProps = withIonAuthSsr<HomePageProps>(
+//   async (context) => {
+//     return {
+//       props: {
+//         title: "Home page",
+//         description: "NestJS Headfirst",
+//       },
+//     };
+//   }
+// );
 export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
   context
 ) => {
-  console.log("[Server Side Props]");
   return {
     props: {
       title: "Home page",

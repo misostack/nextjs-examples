@@ -1,9 +1,9 @@
 // [VMLayer] src/middleware.ts - nextjs's special file
 import { NextRequest, NextResponse } from "next/server";
 
-const middleware = (req: NextRequest) => {
+const middleware = (req: NextRequest & { session: any }) => {
   const response = NextResponse.next();
-  console.log("[MIDDLEWARE]", req.url);
+  req.session = { user: { id: 1 } };
   return response;
 };
 const config = {
