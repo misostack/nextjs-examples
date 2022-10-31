@@ -664,6 +664,16 @@ Middleware allows you to run code before a request is completed, then based on t
 npm install --save cookies-next
 ```
 
+> Architecture for Authentication with session cookie
+
+**Server Side**
+
+![Server Side](../images/nextjs-auth-architecture-ssr.png)
+
+**Client Side**
+
+![Client Side](../images/nextjs-auth-architecture-csr.png)
+
 ## References
 
 - [NextJS Full Examples](https://github.com/vercel/next.js/tree/canary/examples)
